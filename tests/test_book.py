@@ -30,6 +30,16 @@ class TestUser(unittest.TestCase):
             print(('Error while connecting to PostgreSQL:', error))
             
     
+    def test_create_book_record(self):
+        try:
+            self.connection
+            obj_create = Book()
+            wrapper = obj_create.create_book_record(9, 'Programming languages book 1', "2005")  # assert that nos. of record created is updated
+            self.assertEqual(wrapper,1)
+        except (Exception, Error) as error:
+            print('Error while connecting to PostgreSQL:', error)  
+
+    
             
     def tearDown(self):
         if self.connection:
