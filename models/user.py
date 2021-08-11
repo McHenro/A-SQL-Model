@@ -50,4 +50,29 @@ class User:
             finally:
                 if self.connection:
                     self.cursor.close()                                                
-                    self.connection.close()                 
+                    self.connection.close()    
+                    
+                    
+    def update_user_record(self, args,**kwargs):
+        try:
+                self.connection
+                column_name, value = list(kwargs.items())[0]
+                if column_name == 'username':                
+                    update_query = ('UPDATE users SET username = (%s) WHERE user_id = (%s);')            # Updating SQL 
+                    self.cursor.execute(update_query, (value, args))                                     # executes the SQL query
+                elif column_name == 'first_name':                
+                    update_query = ('UPDATE users SET first_name = (%s) WHERE user_id = (%s);')          # Updating SQL 
+                    self.cursor.execute(update_query, (value, args))       
+                elif column_name == 'last_name':                
+                    update_query = ('UPDATE users SET last_name = (%s) WHERE user_id = (%s);')     
+                    self.cursor.execute(update_query, (value, args))      
+                
+                self.connection.commit()                                  # commits the transaction to databse
+                confirm_record = self.cursor.rowcount                     # confirms the number of updated rows
+                return confirm_record
+        except (Exception, Error) as error:
+            print(('Error while connecting to PostgreSQL:', error))
+        finally:
+            if self.connection:
+                self.cursor.close()    
+                self.connection.close()                 
