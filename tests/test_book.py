@@ -18,6 +18,18 @@ class TestUser(unittest.TestCase):
             self.assertIsNot(wrapper, None)                            # To assert that the return value is never a None
         except (Exception, Error) as error:
             print(('Error while connecting to PostgreSQL:', error))
+         
+         
+    def test_fetch_one_book(self):
+        try:
+            self.connection
+            obj_one = Book()
+            wrapper = obj_one.fetch_one_book(10)
+            self.assertEqual(len(wrapper),6)                           # To assert that the length of the return value is must be 6
+        except (Exception, Error) as error:
+            print(('Error while connecting to PostgreSQL:', error))
+            
+    
             
     def tearDown(self):
         if self.connection:
