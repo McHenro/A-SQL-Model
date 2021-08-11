@@ -49,6 +49,18 @@ class TestUser(unittest.TestCase):
         except (Exception, Error) as error:
             print('Error while connecting to PostgreSQL:', error) 
             
+                
+    def test_delete_book_record(self):
+            try:
+                self.connection
+                obj_delete = Book()
+                wrapper = obj_delete.delete_book_record(1029)
+                if wrapper >= 0:
+                    self.assertAlmostEqual(wrapper,0)                           # assert nos. deletion made is greater or equal to one
+            except (Exception, Error) as error:
+                print('Error while connecting to PostgreSQL:', error)
+  
+            
     def tearDown(self):
         if self.connection:
             self.cursor.close()                                       
