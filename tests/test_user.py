@@ -31,6 +31,15 @@ class TestUser(unittest.TestCase):
              print('Error while connecting to PostgreSQL:', error)
                          
 
+    def test_create_user_record(self):
+            try:
+                self.connection
+                obj_create = User()
+                wrapper = obj_create.create_user_record('Lionel', 'Messi', "Paris St Germany")
+                self.assertEqual(wrapper,'confirm_return')
+            except (Exception, Error) as error:
+                print('Error while connecting to PostgreSQL:', error)   
+        
             
 def tearDown(self):
     if self.connection:

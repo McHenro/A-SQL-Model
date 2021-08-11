@@ -33,3 +33,21 @@ class User:
             finally:
                 self.cursor.close()
                 self.connection.close()
+                
+                
+    def create_user_record(self,*arg):
+            try:
+                self.connection
+                create_query = ('INSERT INTO users (username, first_name, last_name) VALUES (%s, %s, %s)')      # Formated SQL query
+                values = arg
+                self.cursor.execute(create_query, values)                                           # executes the SQL query
+                self.connection.commit()                                                            # commits the tansaction to database
+                confirm_record = self.cursor.rowcount                                         # confirms the number of input to database
+                print(f'you have inserted {confirm_record} into users table successfully')
+                return confirm_record
+            except (Exception, Error) as error:
+                print(('Error! Could not connect to Postgres server:', error))
+            finally:
+                if self.connection:
+                    self.cursor.close()                                                
+                    self.connection.close()                 
