@@ -36,7 +36,23 @@ class Book:
             self.connection.close()   
        
        
-            
+    def create_book_record(self,*arg):
+        try:
+            self.connection
+            create_query = ('INSERT INTO books (user_id,book_name, pages) VALUES (%s, %s, %s)')      # Inserting formated SQL query
+            values = arg
+            self.cursor.execute(create_query, values)                                 # executes the SQL query
+            self.connection.commit()                                                  # commits the operations to database
+            confirm_record = self.cursor.rowcount                                     # confirms the number of input made to database
+            return confirm_record
+        except (Exception, Error) as error:
+            print(('Error! Could not connect to Postgres server:', error))
+        finally:
+            if self.connection:
+                self.cursor.close()                                                 # terminates cursor operation
+                self.connection.close()                                             # terminates connection operation
+    
+        
 
 
 
