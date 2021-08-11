@@ -20,6 +20,18 @@ class TestUser(unittest.TestCase):
         except (Exception, Error) as error:
             print('Error while connecting to PostgreSQL:', error)
             
+            
+    def test_fetch_one_user(self):
+        try:
+            self.connection
+            obj_one = User()
+            wrapper = obj_one.fetch_one_user(10)
+            self.assertEqual(len(wrapper),6)
+        except (Exception, Error) as error:
+             print('Error while connecting to PostgreSQL:', error)
+                         
+
+            
 def tearDown(self):
     if self.connection:
         self.cursor.close()                                       
