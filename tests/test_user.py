@@ -38,7 +38,18 @@ class TestUser(unittest.TestCase):
                 wrapper = obj_create.create_user_record('Lionel', 'Messi', "Paris St Germany")
                 self.assertEqual(wrapper,'confirm_return')
             except (Exception, Error) as error:
-                print('Error while connecting to PostgreSQL:', error)   
+                print('Error while connecting to PostgreSQL:', error)  
+                
+                
+    def test_update_user_record(self):
+            try:
+                self.connection
+                obj_update = User()
+                result = obj_update.update_user_record(13, username = 'amara')
+                self.assertEqual(result, 1)     
+            except (Exception, Error) as error:
+                print('Error while connecting to PostreSQL:', error)
+             
         
             
 def tearDown(self):
