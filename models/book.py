@@ -52,8 +52,27 @@ class Book:
                 self.cursor.close()                                                 # terminates cursor operation
                 self.connection.close()                                             # terminates connection operation
     
-        
+            
+    def update_book_record(self, args,**kwargs):
+            try:
+                    self.connection
+                    column_name, value = list(kwargs.items())[0]
+                    if column_name == 'book_name':                
+                        update_query = ('UPDATE books SET book_name = (%s) WHERE book_id = (%s);')     # Updating SQL query
+                        self.cursor.execute(update_query, (value, args))                               # executes the SQL query
+                    elif column_name == 'pages':                
+                        update_query = ('UPDATE books SET pages = (%s) WHERE book_id = (%s);')         # Updating SQL query
+                        self.cursor.execute(update_query, (value, args))                               # executes the SQL query
 
+                    self.connection.commit()
+                    confirm_record = self.cursor.rowcount                               # confirms the number of rows updated
+                    return confirm_record
+            except (Exception, Error) as error:
+                print(('Error while connecting to PostgreSQL:', error))
+            finally:
+                if self.connection:
+                    self.cursor.close()        
+                    self.connection.close()   
 
 
 
