@@ -20,6 +20,22 @@ class Book:
         finally:
             self.cursor.close()                                 # terminate cursor 
             self.connection.close()                             # terminate the connection
+       
+       
+              
+    def fetch_one_book(self,args):
+        try:
+            self.connection
+            self.cursor.execute(f'SELECT * FROM books WHERE user_id = {args};')
+            query_result= self.cursor.fetchone() 
+            return query_result
+        except (Exception, Error) as error:
+            print(('Error! Could not connect to Postgres server:', error))
+        finally:
+            self.cursor.close()
+            self.connection.close()   
+       
+       
             
 
 
