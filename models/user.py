@@ -20,3 +20,16 @@ class User:
         finally:
             self.cursor.close()                                 # terminates cursor operation
             self.connection.close()                             # terminates connection operation
+            
+            
+    def fetch_one_user(self,args):                              # Fetch one user by id
+            try:
+                self.connection
+                self.cursor.execute(f'SELECT * FROM users WHERE user_id = {args};')
+                query_result= self.cursor.fetchone() 
+                return query_result
+            except (Exception, Error) as error:
+                print(('Error! Could not connect to Postgres server:', error))
+            finally:
+                self.cursor.close()
+                self.connection.close()
