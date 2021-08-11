@@ -73,6 +73,31 @@ class Book:
                 if self.connection:
                     self.cursor.close()        
                     self.connection.close()   
+                    
+                    
+            
+    def delete_book_record(self,args):
+        try:    
+                value = args
+                self.connection
+                querry = (f'DELETE FROM books WHERE book_id = {value};')           
+                self.cursor.execute(querry)
+                self.connection.commit()
+                confirm_record = self.cursor.rowcount                               # confirms the number of input to database
+                return confirm_record
+        except (Exception, Error) as error:
+            print(('Error! Could not connect to Postgres server:', error))
+        finally:
+            if self.connection:
+                self.cursor.close()                                               
+                self.connection.close()   
+                    
+        
+if __name__ == '__main__':
+    obj_of_book = Book()
+    print((obj_of_book.delete_book_record(1028)))
+
+
 
 
 
